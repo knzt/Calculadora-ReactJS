@@ -11,6 +11,10 @@ export const OperatorButtonContainer = styled.button`
     margin: 3px;
     box-shadow: inset 0 0 3px lightgray;
     cursor: pointer;
+
+    :active {
+        box-shadow: inset 0 0 10px white;
+    }
 `
 
 

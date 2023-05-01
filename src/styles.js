@@ -10,7 +10,7 @@ export const Container = styled.div`
 `
 
 export const Content = styled.div`
-    background-color: white;
+    background-color: GhostWhite;
     max-width: 65%;
     border-radius: 7px;
     padding: 1rem;

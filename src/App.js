@@ -15,9 +15,12 @@ const App = () => {
 
   const [firstNumber, setFirstNumber] = useState('0');
 
+  const [operation, setOperation] = useState('');
+
   const handleClear = () => {
     setCurrentNumber('');
     setFirstNumber('0');
+    setOperation('')
   }
 
   const handleAddNumber = (number) => {
@@ -27,10 +30,86 @@ const App = () => {
   const handleSumNumbers = () => {
     if (firstNumber === '0') {
       setFirstNumber(currentNumber);
-      setCurrentNumber('');
+      setOperation('+');
+      setCurrentNumber(currentNumber + '+');
     } else {
-      const sum = Number(firstNumber) + Number(currentNumber);
+      // para eliminar o caractere de currenteNumber
+      const index = currentNumber.indexOf('+');
+      const currentNumberWithoutOperator = Number(currentNumber.substring(index + 1));
+      const sum = Number(firstNumber) + currentNumberWithoutOperator;
       setCurrentNumber(sum.toString());
+      setFirstNumber(sum.toString());
+      setOperation('');
+    }
+  }
+
+  const handleSubNumbers = () => {
+    if (firstNumber === '0') {
+      setFirstNumber(currentNumber);
+      setOperation('-');
+      setCurrentNumber(currentNumber + '-');
+    } else {
+      const index = currentNumber.indexOf('-');
+      const currentNumberWithoutOperator = Number(currentNumber.substring(index + 1));
+      const sub = Number(firstNumber) - currentNumberWithoutOperator;
+      setCurrentNumber(sub.toString());
+      setFirstNumber(sub.toString());
+      setOperation('');
+    }
+  }
+
+  const handleMultNumbers = () => {
+    if (firstNumber === '0') {
+      setFirstNumber(currentNumber);
+      setOperation('*');
+      setCurrentNumber(currentNumber + "x");
+    } else {
+      const index = currentNumber.indexOf('x');
+      const currentNumberWithoutOperator = Number(currentNumber.substring(index + 1));
+      const mul = Number(firstNumber) * currentNumberWithoutOperator;
+      setCurrentNumber(mul.toString());
+      setFirstNumber(mul.toString());
+      setOperation('');
+    }
+  }
+
+  const handleDivideNumbers = () => {
+    if (firstNumber === '0') {
+      setFirstNumber(currentNumber);
+      setOperation('/');
+      setCurrentNumber(currentNumber + '/');
+    } else {
+      const index = currentNumber.indexOf('/');
+      const currentNumberWithoutOperator = Number(currentNumber.substring(index + 1));
+      const divide = Number(firstNumber) / currentNumberWithoutOperator;
+      setCurrentNumber(divide.toString());
+      setFirstNumber(divide.toString());
+      setOperation('');
+    }
+  }
+
+
+  const handleEquals = () => {
+    if (firstNumber !== '0' && operation !== '') {
+      switch (operation) {
+        case '+':
+          handleSumNumbers();
+          break;
+
+        case '-':
+          handleSubNumbers();
+          break;
+
+        case '*':
+            handleMultNumbers();
+          break;
+
+        case '/':
+            handleDivideNumbers();
+          break;
+
+        default: break;
+      }
     }
   }
 
@@ -43,16 +122,16 @@ const App = () => {
 
         <Row>
           <OperatorButton label="+" onClick={handleSumNumbers}/>
-          <OperatorButton label="-" onClick={() => handleAddNumber('-')}/>
-          <OperatorButton label="x" onClick={() => handleAddNumber('x')}/>
-          <OperatorButton label="/" onClick={() => handleAddNumber('/')}/>
+          <OperatorButton label="-" onClick={handleSubNumbers}/>
+          <OperatorButton label="x" onClick={handleMultNumbers}/>
+          <OperatorButton label="/" onClick={handleDivideNumbers}/>
         </Row>
 
         <Row>
           <Button label="1" onClick={() => handleAddNumber('1')}/>
           <Button label="2" onClick={() => handleAddNumber('2')}/>
           <Button label="3" onClick={() => handleAddNumber('3')}/>
-          <EqualButton label="=" onClick={() => handleAddNumber('')}/>
+          <EqualButton label="=" onClick={handleEquals}/>
         </Row>
 
         <Row>

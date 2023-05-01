@@ -11,6 +11,10 @@ export const ButtonContainer = styled.button`
     margin: 3px;
     box-shadow: inset 0 0 5px lightgray;
     cursor: pointer;
+
+    :active {
+        box-shadow: inset 0 0 10px gray;
+    }
 `
 
 
